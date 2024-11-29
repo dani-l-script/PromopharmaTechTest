@@ -16,7 +16,6 @@ const fetchProducts = async (): Promise<Product[]> => {
     if (!Array.isArray(data)) {
       throw new Error("Invalid data format: Expected an array of products.");
     }
-    console.log(data)
     return data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
