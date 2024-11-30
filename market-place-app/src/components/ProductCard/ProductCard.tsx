@@ -1,12 +1,13 @@
 import React from "react";
-import { Product } from "@/common/types/Product";
-//import AddToCartButton from "../AddToCartButton/AddToCartButton";
+import { ProductType } from '@/common/types/Product.type';
+import AddToCartButton from "../AddToCartButton/AddToCartButton";
 
-interface ProductCardProps {
-  product: Product;
+interface ProductCardType {
+    product: ProductType;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+
+const ProductCard: React.FC<ProductCardType> = ({ product }) => {
   return (
     <li className="bg-white shadow-md rounded-lg p-6 flex flex-col hover:shadow-xl transition-shadow duration-300">
       {product.images && product.images.length > 0 ? (
@@ -24,6 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       )}
 
+      {/* Detalles del Producto */}
       <h2 className="text-xl font-semibold mb-2 text-gray-800">{product.name}</h2>
       <p className="text-gray-600 mb-1">
         <span className="font-medium">Proveedor:</span> {product.supplier}
@@ -38,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <span className="font-medium">Tamaño del Paquete:</span> {product.packagingSize}
       </p>
 
-      {/* <AddToCartButton product={product} /> */}
+      <AddToCartButton product={product} />
     </li>
   );
 };
