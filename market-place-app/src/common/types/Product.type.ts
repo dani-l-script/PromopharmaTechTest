@@ -78,3 +78,7 @@ export interface Product {
   prices: Prices;
   images: ProductImage[];
 }
+
+export interface ProductListProps {
+  products: Product[];
+}

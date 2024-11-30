@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { Product } from "../common/types/Product";
+import { Product } from "../common/types/Product.type";
 
 const fetchProducts = async (): Promise<Product[]> => {
   try {
-    const {data, status}: AxiosResponse<Product[]> = await axios.get(
+    const { data, status }: AxiosResponse<Product[]> = await axios.get(
       "http://localhost:3002/products",
       {
         timeout: 7000,
