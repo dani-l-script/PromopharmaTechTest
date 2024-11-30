@@ -1,9 +1,10 @@
 import React from "react";
-import ProductCard from "../ProductCard/ProductCard";
 import fetchProducts from "@/utils/fetchProducts";
-import { Product } from "@/common/types/Product.type";
+import { ProductType } from "@/common/types/Product.type";
+import ProductCard from "../ProductCard/ProductCard";
 
-const ProductList: React.FC = async ({  }) => {
+
+const ProductList: React.FC = async () => {
   const products = await fetchProducts();
 
   if (!products.length) {
@@ -14,7 +15,7 @@ const ProductList: React.FC = async ({  }) => {
 
   return (
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {products.map((product: Product) => (
+      {products.map((product: ProductType) => (
         <ProductCard key={product.code} product={product} />
       ))}
     </ul>

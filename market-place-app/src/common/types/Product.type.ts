@@ -60,7 +60,7 @@ export interface Prices {
   savingsPercentageFormatted: string;
 }
 
-export interface Product {
+export interface ProductType {
   code: string;
   name: string;
   supplier: string;
@@ -79,6 +79,6 @@ export interface Product {
   images: ProductImage[];
 }
 
-export interface ProductListProps {
-  products: Product[];
+export interface ProductListPropsType {
+  products: ProductType[];
 }
