@@ -25,7 +25,6 @@ const ProductCard: React.FC<ProductCardType> = ({ product }) => {
         </div>
       )}
 
-      {/* Detalles del Producto */}
       <h2 className="text-xl font-semibold mb-2 text-gray-800">{product.name}</h2>
       <p className="text-gray-600 mb-1">
         <span className="font-medium">Proveedor:</span> {product.supplier}
