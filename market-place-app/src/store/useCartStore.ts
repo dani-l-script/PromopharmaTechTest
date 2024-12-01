@@ -53,7 +53,7 @@ const useCartStore = create<CartStore>()(
         ),
     }),
     {
-      name: "cart-storage", // Nombre de la key en localStorage
+      name: "cart-storage",
     }
   )
 );
