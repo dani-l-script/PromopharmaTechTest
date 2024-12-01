@@ -1,6 +1,5 @@
-import { ProductType } from "@/common/types/Product.type";
 import axios, { AxiosResponse } from "axios";
-
+import { ProductType } from "../common/types/Product.type";
 
 const fetchProducts = async (): Promise<ProductType[]> => {
   try {
