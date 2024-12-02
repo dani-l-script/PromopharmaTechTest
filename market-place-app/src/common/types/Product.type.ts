@@ -23,7 +23,7 @@ export interface ProductImageVariant {
   height: number;
 }
 
-export interface ProductImage {
+export interface ProductImageType {
   id: number;
   versionNumber: number;
   meta: {
@@ -76,7 +76,7 @@ export interface ProductType {
   categories: Category[];
   saleConditions: SaleConditions;
   prices: Prices;
-  images: ProductImage[];
+  images: ProductImageType[];
 }
 
 export interface ProductListPropsType {

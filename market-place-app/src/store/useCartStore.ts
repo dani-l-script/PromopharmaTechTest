@@ -1,7 +1,6 @@
 import { ProductType } from "@/common/types/Product.type";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-//import zuukeeper from "zukeeper";
 
 interface CartItem extends ProductType {
   quantity: number;
@@ -12,7 +11,8 @@ interface CartStore {
   addToCart: (product: ProductType) => void;
   removeFromCart: (productCode: string) => void;
   clearCart: () => void;
-  getTotal: () => number;
+  getTotalValue: () => number;
+  getTotalAmount: () => number;
 }
 
 const useCartStore = create<CartStore>()(
@@ -38,17 +38,30 @@ const useCartStore = create<CartStore>()(
         }
       },
       removeFromCart: (productCode: string) => {
-        //TODO fix item quatity
-        set({
-          cartItems: get().cartItems.filter(
-            (item) => item.code !== productCode
-          ),
-        });
+        const updatedCartItems = get().cartItems.reduce<CartItem[]>(
+          (acc, item) => {
+            if (item.code === productCode) {
+              if (item.quantity > 1) {
+                acc.push({ ...item, quantity: item.quantity - 1 });
+              }
+            } else {
+              acc.push(item);
+            }
+            return acc;
+          },
+          []
+        );
+        set({ cartItems: updatedCartItems });
       },
       clearCart: () => set({ cartItems: [] }),
-      getTotal: () =>
+      getTotalValue: () =>
         get().cartItems.reduce(
           (total, item) => total + item.prices.salesPrice.value * item.quantity,
+          0
+        ),
+      getTotalAmount: () =>
+        get().cartItems.reduce(
+          (total, item) => total + item.quantity,
           0
         ),
     }),

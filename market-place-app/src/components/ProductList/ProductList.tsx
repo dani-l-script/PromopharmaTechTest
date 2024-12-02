@@ -3,25 +3,30 @@ import fetchProducts from "@/utils/fetchProducts";
 import { ProductType } from "@/common/types/Product.type";
 import ProductCard from "../ProductCard/ProductCard";
 
-
 const ProductList: React.FC = async () => {
-  const products = await fetchProducts();
+  try {
+    const products: ProductType[] = await fetchProducts();
 
-  if (!products.length) {
+    if (!products.length) {
+      return <p className="text-gray-500 text-center">No products available.</p>;
+    }
+
     return (
-      <p className="text-gray-500 text-center">No hay productos disponibles.</p>
+      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {products.map((product: ProductType) => {
+          try {
+            return <ProductCard key={product.code} product={product} />;
+          } catch (error) {
+            console.error("Error rendering product card:", error);
+            return null;
+          }
+        })}
+      </ul>
     );
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return <p className="text-gray-500 text-center">Products not available, please contact later.</p>;
   }
-
-  return (
-    <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {products.map((product: ProductType) => (
-        <ProductCard key={product.code} product={product} />
-      ))}
-    </ul>
-  );
 };
-
-
 
 export default ProductList;

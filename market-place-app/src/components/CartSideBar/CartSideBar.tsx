@@ -3,9 +3,18 @@
 import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import useCartStore from "@/store/useCartStore";
+import { roundPrice } from "@/utils/roundPrice";
+import ProductImage from "../ProductImage/ProductImage";
 
 const CartSidebar: React.FC = () => {
-  const { cartItems, addToCart, removeFromCart, clearCart, getTotal } = useCartStore();
+  const {
+    cartItems,
+    addToCart,
+    removeFromCart,
+    clearCart,
+    getTotalValue,
+    getTotalAmount,
+  } = useCartStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const openCart = () => setIsOpen(true);
@@ -17,7 +26,7 @@ const CartSidebar: React.FC = () => {
         onClick={openCart}
         className="fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 z-50 flex items-center justify-center"
       >
-        🛒 {cartItems.length}
+        🛒 {getTotalAmount()}
       </button>
 
       {isOpen && (
@@ -29,7 +38,7 @@ const CartSidebar: React.FC = () => {
 
           <div className="relative bg-white w-80 sm:w-96 h-full shadow-xl overflow-y-auto transition-transform duration-300 transform">
             <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-xl font-semibold">Tu Carrito</h2>
+              <h2 className="text-xl font-semibold">Your Cart</h2>
               <button onClick={closeCart}>
                 <FaTimes size={20} />
               </button>
@@ -37,38 +46,43 @@ const CartSidebar: React.FC = () => {
 
             <div className="p-4">
               {cartItems.length === 0 ? (
-                <p className="text-gray-500">Tu carrito está vacío.</p>
+                <p className="text-gray-500">Your cart is empty.</p>
               ) : (
                 <ul>
-                  {cartItems.map((item) => (
-                    <li key={item.code} className="flex items-center mb-4">
-                      <img
-                        src={
-                          item.images[0]?.variants["100"]?.formats.jpg?.resolutions["1x"].url ||
-                          "/placeholder.png"
-                        }
-                        alt={item.name}
-                        className="w-16 h-16 object-cover rounded-md mr-4"
-                      />
+                  {cartItems.map((productItem) => (
+                    <li
+                      key={productItem.code}
+                      className="flex items-center mb-4"
+                    >
+                        <ProductImage
+                          name={productItem.name}
+                          images={productItem.images}
+                        />
                       <div className="flex-1">
-                        <h3 className="text-lg font-medium">{item.name}</h3>
+                        <h3 className="text-lg font-medium">
+                          {productItem.name}
+                        </h3>
                         <p className="text-gray-600">
-                          Precio: {item.prices.salesPrice.formattedValue}
+                          Price: {productItem.prices.salesPrice.formattedValue}
                         </p>
-                        <p className="text-gray-600">Cantidad: {item.quantity}</p>
                         <p className="text-gray-600">
-                          Total: ${(item.prices.salesPrice.value * item.quantity)}
+                          Quantity: {productItem.quantity}
+                        </p>
+                        <p className="text-gray-600">
+                          Total: $
+                          {productItem.prices.salesPrice.value *
+                            productItem.quantity}
                         </p>
                       </div>
                       <div className="flex flex-col">
                         <button
-                          onClick={() => addToCart(item)}
+                          onClick={() => addToCart(productItem)}
                           className="bg-green-500 text-white px-2 py-1 rounded mb-2 hover:bg-green-600"
                         >
                           +
                         </button>
                         <button
-                          onClick={() => removeFromCart(item.code)}
+                          onClick={() => removeFromCart(productItem.code)}
                           className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
                         >
                           -
@@ -84,14 +98,16 @@ const CartSidebar: React.FC = () => {
               <div className="p-4 border-t">
                 <div className="flex justify-between items-center mb-4">
                   <span className="font-semibold">Total:</span>
-                  <span className="font-semibold">${getTotal()}</span>
+                  <span className="font-semibold">
+                    ${roundPrice(getTotalValue())}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <button
                     onClick={clearCart}
                     className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
                   >
-                    Vaciar Carrito
+                    Clear Cart
                   </button>
                 </div>
               </div>
