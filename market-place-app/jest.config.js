@@ -3,8 +3,8 @@ module.exports = {
     {
       displayName: 'node',
       preset: 'ts-jest',
-      testEnvironment: 'node',
-      testMatch: ['<rootDir>/src/utils/**/*.test.ts'], // Ajusta según tu estructura
+      testEnvironment: 'jest-environment-jsdom',
+      testMatch: ['<rootDir>/src/**/**/*.test.ts'],
       moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
       },
@@ -12,12 +12,12 @@ module.exports = {
     {
       displayName: 'jsdom',
       preset: 'ts-jest',
-      testEnvironment: 'jest-environment-jsdom', // Actualizado para usar el entorno jsdom instalado
-      testMatch: ['<rootDir>/src/components/**/*.test.tsx'], // Ajusta según tu estructura
+      testEnvironment: 'jest-environment-jsdom',
+      testMatch: ['<rootDir>/src/components/**/*.test.tsx'],
       moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
       },
-      setupFilesAfterEnv: ['<rootDir>/jest.setup.js'], // Para jest-dom
+      setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     },
   ],
 };
