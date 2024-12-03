@@ -13,6 +13,9 @@ export default {
         foreground: "var(--foreground)",
       },
     },
+    textDecoration: {
+      lineThrough: 'line-through',
+    },
   },
   plugins: [],
 } satisfies Config;

@@ -36,7 +36,7 @@ const CartSidebar: React.FC = () => {
             onClick={closeCart}
           ></div>
 
-          <div className="relative bg-white w-80 sm:w-96 h-full shadow-xl overflow-y-auto transition-transform duration-300 transform">
+          <div className="relative bg-white md:w-100 w-full sm:w-96 h-full shadow-xl overflow-y-auto transition-transform duration-300 transform">
             <div className="flex justify-between items-center p-4 border-b">
               <h2 className="text-xl font-semibold">Your Cart</h2>
               <button onClick={closeCart}>
@@ -44,37 +44,36 @@ const CartSidebar: React.FC = () => {
               </button>
             </div>
 
-            <div className="p-4">
+            <div className="p-4 md:w-auto w-full">
               {cartItems.length === 0 ? (
                 <p className="text-gray-500">Your cart is empty.</p>
               ) : (
-                <ul>
+                <ul className="text-black">
                   {cartItems.map((productItem) => (
                     <li
                       key={productItem.code}
                       className="flex items-center mb-4"
                     >
+                      <div className="w-2/5 mr-4">
                         <ProductImage
                           name={productItem.name}
                           images={productItem.images}
+                          styles="w-full h-full object-cover"
                         />
-                      <div className="flex-1">
-                        <h3 className="text-lg font-medium">
-                          {productItem.name}
-                        </h3>
+                      </div>
+
+                      <div className="w-2/3 flex flex-col justify-center">
+                        <h3 className="text-sm font-medium">{productItem.name}</h3>
                         <p className="text-gray-600">
                           Price: {productItem.prices.salesPrice.formattedValue}
                         </p>
+                        <p className="text-gray-600">Quantity: {productItem.quantity}</p>
                         <p className="text-gray-600">
-                          Quantity: {productItem.quantity}
-                        </p>
-                        <p className="text-gray-600">
-                          Total: $
-                          {productItem.prices.salesPrice.value *
-                            productItem.quantity}
+                          Total: ${productItem.prices.salesPrice.value * productItem.quantity}
                         </p>
                       </div>
-                      <div className="flex flex-col">
+
+                      <div className="w-1/5 flex flex-col items-center">
                         <button
                           onClick={() => addToCart(productItem)}
                           className="bg-green-500 text-white px-2 py-1 rounded mb-2 hover:bg-green-600"

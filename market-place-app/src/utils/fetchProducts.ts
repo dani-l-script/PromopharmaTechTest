@@ -34,3 +34,4 @@ const fetchProducts = async (): Promise<ProductType[]> => {
 };
 
 export default fetchProducts;
+

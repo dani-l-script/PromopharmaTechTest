@@ -27,10 +27,10 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
   };
 
   return (
-    <div>
+    <div className="w-full flex justify-center">
       <button
         onClick={handleAddToCart}
-        className="mt-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center justify-center"
+        className=" w-full mt-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center justify-center"
         disabled={loading}
       >
         {loading ? (
